@@ -1,27 +1,31 @@
-import { createBrowserRouter } from "react-router-dom";
-import Layout from "./Layout";
+// src/Router.jsx
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import { CartProvider } from "./context/CartContext";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import HomePage from "./pages/Home";
-import About from "./pages/About";
-import Contact from "./pages/ContactPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
-const router = createBrowserRouter([
-  {
-    element: <Layout />,  // Layout wrap karega har page ko hello
-    children: [
-      {
-        path: "/",
-        element: <HomePage />,
-      },
-      {
-        path: "/about",
-        element: <About />,
-      },
-      {
-        path: "/contact",
-        element: <Contact />,
-      },
-    ],
-  },
-]);
+// ← CartProvider lives HERE, inside the router tree
+const RootLayout = () => (
+  <CartProvider>
+    <Navbar />
+    <Outlet />
+    <Footer />
+  </CartProvider>
+);
 
-export default router;
+const createRouter = () =>
+  createBrowserRouter([
+    {
+      element: <RootLayout />,
+      children: [
+        { path: "/",         element: <HomePage /> },
+        { path: "/checkout", element: <CheckoutPage /> },
+        { path: "/about",    element: <div>About</div> },
+        { path: "/contact",  element: <div>Contact</div> },
+      ],
+    },
+  ]);
+
+export default createRouter;

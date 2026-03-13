@@ -1,14 +1,10 @@
 import { RouterProvider } from "react-router-dom";
-import router from "./Router";
-import Navbar from "./components/Navbar";
-function App() {
-  return (
-    <>
+import { useMemo } from "react";
+import createRouter from "./Router";
 
-     <RouterProvider router={router} />
-   
-    </>
-  );
+export default function App() {
+
+  const router = useMemo(() => createRouter(), []);
+
+  return <RouterProvider router={router} />;
 }
-
-export default App;
