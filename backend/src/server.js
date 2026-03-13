@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
 import {connectDB} from "./config/db.js";
-import ContactRoute from "./routes/Contact.route.js";
-
+import orderRoutes from "./routes/orderRoutes.js"
+import productRoutes from "./routes/productRoutes.js"
 dotenv.config();
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://goldenhorde.vercel.app",
+      "https://goldenhorde.vercel.app", //frontend url
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
@@ -31,7 +31,8 @@ app.use(express.urlencoded({ extended: true }));
    ROUTES
 ───────────────────────────── */
 
-app.use("/api", ContactRoute);
+app.use("/api", orderRoutes);
+app.use("/api", productRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
@@ -40,4 +41,8 @@ app.get("/", (req, res) => {
 /* ─────────────────────────────
    SERVER LISTEN
 ───────────────────────────── */
-export default app;
+// export default app;
+const PORT=process.env.PORT || 5000
+app.listen(PORT,()=>{
+  console.log(`Server Running on PORT ${PORT}`)
+})
