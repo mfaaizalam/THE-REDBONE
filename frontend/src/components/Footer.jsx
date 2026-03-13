@@ -13,14 +13,10 @@ const Footer = () => {
             <div className="flex items-center gap-2">
               {/* Logo placeholder - replace src with actual logo */}
               <img
-                src="/logo.png"
-                alt="The Redbone"
-                className="h-12 w-auto"
-                onError={(e) => {
-                  e.target.style.display = "none";
-                  e.target.nextSibling.style.display = "flex";
-                }}
-              />
+    src="/redbone-logo.png"
+    alt="The Redbone"
+    className="h-28 w-auto object-contain"
+  />
               <div
                 style={{ display: "none" }}
                 className="flex items-center gap-1"

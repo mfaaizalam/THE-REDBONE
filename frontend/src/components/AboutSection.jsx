@@ -52,7 +52,7 @@ export default function AboutSection() {
             <div className="relative rounded-lg overflow-hidden" style={{ boxShadow: "0 24px 64px rgba(0,0,0,0.7)" }}>
               {!imgErr ? (
                 <img
-                  src="/about-restaurant.jpg"
+                  src="/gallery-interior-1.jpg"
                   alt="The Redbone restaurant interior"
                   className="w-full h-[420px] object-cover"
                   onError={() => setImgErr(true)}

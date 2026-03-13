@@ -3,15 +3,15 @@ import { useState } from "react";
 import { useCart } from "../context/CartContext"; // ← read from context
 
 const MENU_ITEMS = [
-  { id: 1, name: "Pulled Pork Sandwich", description: "12-hour smoked pulled pork with tangy slaw on brioche", price: 16.99, category: "sandwiches", image: "/menu-pulled-pork.jpg", badge: "SANDWICHES" },
-  { id: 2, name: "BBQ Glazed Ribs", description: "Fall-off-the-bone baby back ribs with house BBQ glaze", price: 28.99, category: "signature", image: "/menu-ribs.jpg", badge: "SIGNATURE" },
-  { id: 3, name: "Smoked Whole Chicken", description: "Herb-brined whole chicken slow-smoked over hickory", price: 24.99, category: "signature", image: "/menu-chicken.jpg", badge: "SIGNATURE" },
-  { id: 4, name: "Brisket Burnt Ends", description: "Caramelized beef brisket cubes with pickles & toast", price: 22.99, category: "signature", image: "/menu-brisket.jpg", badge: "SIGNATURE" },
-  { id: 5, name: "Smoked Lamb Chops", description: "Premium lamb chops with rosemary and garlic", price: 34.99, category: "premium", image: "/menu-lamb.jpg", badge: "PREMIUM" },
-  { id: 6, name: "Smoky Mac & Cheese", description: "Cast-iron baked mac with smoked gouda & brisket bits", price: 12.99, category: "sides", image: "/menu-mac.jpg", badge: "SIDES" },
-  { id: 7, name: "Smoked Turkey Leg", description: "Giant carnival-style turkey leg, smoked low and slow", price: 18.99, category: "signature", image: "/menu-turkey.jpg", badge: "SIGNATURE" },
-  { id: 8, name: "BBQ Bacon Burger", description: "Double smash patty with crispy bacon and BBQ aioli", price: 19.99, category: "sandwiches", image: "/menu-burger.jpg", badge: "SANDWICHES" },
-  { id: 9, name: "Wagyu Tomahawk", description: "40oz bone-in wagyu ribeye, aged 28 days, fire-finished", price: 89.99, category: "premium", image: "/menu-wagyu.jpg", badge: "PREMIUM" },
+  { id: 1, name: "Pulled Beef Sandwich", description: "12-hour smoked pulled beef with tangy slaw on brioche", price: 16.99, category: "sandwiches", image: "/menu-item-1.jpg", badge: "SANDWICHES" },
+  { id: 2, name: "BBQ Glazed Ribs", description: "Fall-off-the-bone beef ribs with house BBQ glaze", price: 28.99, category: "signature", image: "/menu-item-2.jpg", badge: "SIGNATURE" },
+  { id: 3, name: "Smoked Whole Chicken", description: "Herb-brined whole chicken slow-smoked over hickory", price: 24.99, category: "signature", image: "/menu-item-3.jpg", badge: "SIGNATURE" },
+  { id: 4, name: "Brisket Burnt Ends", description: "Caramelized beef brisket cubes with pickles & toast", price: 22.99, category: "signature", image: "/menu-item-4.jpg", badge: "SIGNATURE" },
+  { id: 5, name: "Smoked Lamb Chops", description: "Premium lamb chops with rosemary and garlic", price: 34.99, category: "premium", image: "/menu-item-5.jpg", badge: "PREMIUM" },
+  { id: 6, name: "Smoky Mac & Cheese", description: "Cast-iron baked mac with smoked gouda & brisket bits", price: 12.99, category: "sides", image: "/menu-item-6.jpg", badge: "SIDES" },
+  { id: 7, name: "Smoked Turkey Leg", description: "Giant carnival-style turkey leg, smoked low and slow", price: 18.99, category: "signature", image: "/menu-item-7.jpg", badge: "SIGNATURE" },
+  { id: 8, name: "BBQ Bacon Burger", description: "Double smash patty with crispy bacon and BBQ aioli", price: 19.99, category: "sandwiches", image: "/gallery-food-2.jpg", badge: "SANDWICHES" },
+  { id: 9, name: "Wagyu Tomahawk", description: "40oz bone-in wagyu ribeye, aged 28 days, fire-finished", price: 89.99, category: "premium", image: "/menu-item-9.jpg", badge: "PREMIUM" },
 ];
 
 const FILTERS = ["ALL", "SIGNATURE", "SANDWICHES", "PREMIUM", "SIDES"];
@@ -108,25 +108,40 @@ export default function MenuPage() {
                       {item.description}
                     </p>
 
-                    <button onClick={() => handleAdd(item)}
-                      className={`w-full py-[11px] rounded-[3px] text-[10px] font-bold tracking-[3px] uppercase
-                        border flex items-center justify-center gap-2 cursor-pointer transition-all duration-300
-                        ${added === item.id ? "border-transparent text-white" : "bg-transparent text-red-600 hover:text-white hover:border-transparent"}`}
-                      style={{
-                        fontFamily: "'Cinzel', serif",
-                        ...(added === item.id
-                          ? { background: "linear-gradient(135deg,#27ae60,#2ecc71)", boxShadow: "0 4px 16px rgba(39,174,96,0.3)" }
-                          : { borderColor: "rgba(192,57,43,0.4)" }),
-                      }}
-                      onMouseEnter={(e) => { if (added !== item.id) { e.currentTarget.style.background = "linear-gradient(135deg,#c0392b,#e07b2a)"; e.currentTarget.style.borderColor = "transparent"; }}}
-                      onMouseLeave={(e) => { if (added !== item.id) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(192,57,43,0.4)"; }}}
-                    >
-                      {added === item.id ? (
-                        <><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>Added!</>
-                      ) : (
-                        <><span className="text-[16px] leading-none font-light">+</span>{inCart ? `Add More (${inCart.qty})` : "Add to Cart"}</>
-                      )}
-                    </button>
+<button
+  onClick={() => handleAdd(item)}
+  className={`w-full py-[11px] rounded-[3px] text-[10px] font-bold tracking-[3px] uppercase
+    border flex items-center justify-center gap-2 cursor-pointer transition-all duration-300
+    ${added === item.id ? "border-transparent text-white" : "bg-transparent text-red-600 hover:text-white hover:border-transparent"}`}
+  style={{
+    fontFamily: "'Cinzel', serif",
+    background: "transparent", // always transparent
+    boxShadow: "none",         // no green shadow
+    borderColor: added === item.id ? "rgba(192,57,43,0.4)" : "rgba(192,57,43,0.4)", // keep consistent
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.background = "linear-gradient(135deg,#c0392b,#e07b2a)";
+    e.currentTarget.style.borderColor = "transparent";
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.background = "transparent";
+    e.currentTarget.style.borderColor = "rgba(192,57,43,0.4)";
+  }}
+>
+  {added === item.id ? (
+    <>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+      Added!
+    </>
+  ) : (
+    <>
+      <span className="text-[16px] leading-none font-light">+</span>
+      {inCart ? `Add More (${inCart.qty})` : "Add to Cart"}
+    </>
+  )}
+</button>
                   </div>
                 </div>
               );
