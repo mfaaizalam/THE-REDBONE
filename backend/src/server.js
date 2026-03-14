@@ -42,7 +42,5 @@ app.get("/", (req, res) => {
    SERVER LISTEN
 ───────────────────────────── */
 // export default app;
-const PORT=process.env.PORT || 5000
-app.listen(PORT,()=>{
-  console.log(`Server Running on PORT ${PORT}`)
-})
+
+export default app;
