@@ -16,7 +16,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://goldenhorde.vercel.app", //frontend url
+      "https://the-redbone.vercel.app", //frontend url
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
