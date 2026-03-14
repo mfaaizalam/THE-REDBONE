@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import Input from "../components/Input"; // import Input component
-
+import { submitOrder } from "../lib/api.js";
 const TAX_RATE = 0.16;
 const DELIVERY = 5.0;
 
@@ -21,7 +21,6 @@ export default function CheckoutPage() {
     alternatePhone: "",
     email: "",
     city: "",
-    area: "",
     address: "",
     landmark: "",
     deliveryInstructions: "",
@@ -46,44 +45,41 @@ export default function CheckoutPage() {
     if (errors[k]) setErrors((p) => ({ ...p, [k]: "" }));
   };
 
-  const handleSubmit = async () => {
-    const e = validate();
-    if (Object.keys(e).length) { setErrors(e); return; }
+const handlePlaceOrder = async () => {
+  const e = validate();
+  if (Object.keys(e).length) { setErrors(e); return; }
 
-    setLoading(true);
-    const payload = {
-      items: cartItems.map((i) => ({
-        productId: i.id,
-        name: i.name,
-        quantity: i.qty,
-        price: i.price,
-      })),
-      customerName: form.customerName,
-      phone: form.phone,
-      email: form.email,
-      city: form.city,
-      area: form.area,
-      address: form.address,
-      landmark: form.landmark,
-      totalPrice: grandTotal,
-    };
+  setLoading(true);
 
-    try {
-      const res = await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (res.ok) {
-        setPlaced(true);
-        clearCart?.();
-      }
-    } catch {
-      // handle error
-    } finally {
-      setLoading(false);
-    }
+  const payload = {
+    items: cartItems.map(i => ({
+      productId: i._id,
+      name: i.name,
+      quantity: i.qty,
+      price: i.price,
+    })),
+    customerName: form.customerName,
+    phone: form.phone,
+    alternativePhone: form.alternatePhone,
+    email: form.email,
+    city: form.city,
+    landmark: form.landmark,
+    address: form.address,
+    deliveryInstructions: form.deliveryInstructions,
+    totalPrice: grandTotal,
   };
+
+  try {
+    await submitOrder(payload); // axios call to backend
+    setPlaced(true);
+    clearCart?.();
+  } catch (err) {
+    console.error(err);
+    alert(err.message || "Something went wrong");
+  } finally {
+    setLoading(false);
+  }
+};
 
   if (placed) {
     return (
@@ -213,7 +209,7 @@ export default function CheckoutPage() {
               </div>
 
               <button
-                onClick={handleSubmit}
+                onClick={handlePlaceOrder}
                 disabled={loading || cartItems.length === 0}
                 className={`w-full py-4 rounded-sm text-sm font-bold tracking-[4px] uppercase transition-all duration-300 cursor-pointer border-none
                   ${cartItems.length === 0 ? "bg-stone-800 text-stone-600 cursor-not-allowed" : "bg-red-700 text-white hover:bg-red-800 hover:-translate-y-0.5"}`}
