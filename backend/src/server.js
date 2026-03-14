@@ -16,12 +16,14 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://the-redbone.vercel.app", //frontend url
+      "https://the-redbone.vercel.app",
+      "https://the-redbone-7xuw.vercel.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
+
 
 connectDB();
 app.use(express.json());
