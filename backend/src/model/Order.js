@@ -9,13 +9,14 @@ const orderSchema = mongoose.Schema({
       price: Number
     }
   ],
-  city: String,
-  area: String,
   customerName: String,
   phone: String,
+  alternativePhone: String,
   email: String,
-  address: String,
+  city: String,
   landmark: String,
+  address: String,
+  deliveryInstructions: String,
   totalPrice: Number,
 }, { timestamps: true });
 

@@ -6,20 +6,21 @@ import nodemailer from 'nodemailer';
 
 export const placeOrder = async (req, res) => {
   try {
-    const { items, city, area, customerName, phone, email, address, landmark } = req.body;
+    const { items, city,alternativePhone, customerName, phone, email, address, landmark , deliveryInstructions} = req.body;
 
     const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     const order = await Order.create({
       items,
       city,
-      area,
       customerName,
       phone,
+      alternativePhone,
       email,
       address,
       landmark,
-      totalPrice
+      totalPrice,
+      deliveryInstructions
     });
 
     // Send email to admin
@@ -36,10 +37,10 @@ export const placeOrder = async (req, res) => {
      to: "smartwrite1414@gmail.com",   
       subject: `New Order from ${customerName}`,
       html: `
-City: ${city}, Area: ${area}
+City: ${city}, Alternative Phone: ${alternativePhone}
 Name: ${customerName}, Phone: ${phone}, Email: ${email}
 Address: ${address}, Landmark: ${landmark}
-Total: ${totalPrice}$
+Total: ${totalPrice}$ Delivery Instructions: ${deliveryInstructions}
 Items: ${items.map(i => `${i.name} x${i.quantity}`).join(', ')}
       `
     };
