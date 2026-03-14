@@ -26,7 +26,7 @@ const Navbar = () => {
     { label: "HOME", href: "home" },
     { label: "MENU", href: "menu" },
     { label: "ABOUT", href: "about" },
-    { label: "CONTACT", href: "contact" },
+   
   ];
 
   // ─── Cart Sidebar ─────────────────────────────
