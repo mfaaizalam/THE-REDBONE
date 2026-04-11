@@ -37,11 +37,11 @@ export const placeOrder = async (req, res) => {
      to: "smartwrite1414@gmail.com",   
       subject: `New Order from ${customerName}`,
       html: `
-City: ${city}, Alternative Phone: ${alternativePhone}
-Name: ${customerName}, Phone: ${phone}, Email: ${email}
-Address: ${address}, Landmark: ${landmark}
-Total: ${totalPrice}$ Delivery Instructions: ${deliveryInstructions}
-Items: ${items.map(i => `${i.name} x${i.quantity}`).join(', ')}
+<p>City: ${city}, Alternative Phone: ${alternativePhone}</p>
+<p>Name: ${customerName}, Phone: ${phone}, Email: ${email}</p>
+<p>Address: ${address}, Landmark: ${landmark}</p>
+<p>Total: ${totalPrice}$ Delivery Instructions: ${deliveryInstructions}</p>
+<p>Items: ${items.map(i => `${i.name} x${i.quantity}`).join(', ')}</p>
       `
     };
 
