@@ -199,10 +199,8 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="flex justify-center">
           <p style={{ color: "#6b5e4e" }} className="text-sm flex items-center gap-1">
-            © 2024 The Redbone. All rights reserved. Smoked with{" "}
-            <span style={{ color: "#c0392b" }} className="text-base">
-              ❤
-            </span>
+            © 2026 The Redbone. All rights reserved.
+           
           </p>
         </div>
       </div>
